@@ -13,11 +13,11 @@ Go é uma linguagem moderna que utiliza recursos para concorrência novos e efic
 
 Go além de ser uma liguagem fortemente tipada, o que ajuda muito no desenvolvimento, é também compilada, o que faz com que seja bastante performática.
 
-Pelo fato de ser uma linguagem compilada, o compilador é uma peça importante da linguagem, porém, em Go, em vez disso ser uma fraqueza, é na verdade um ponto forte da linguagem, pois o compilador é muito rápido e faz diversas checagens antes de gerar o executável final. Tudo isso torna seus programas confiáveis e robustos.
+Pelo fato de ser uma linguagem compilada, o compilador é uma peça importante da linguagem, porém, em Go, em vez disso ser uma fraqueza, é na verdade um ponto forte da linguagem, pois o compilador é muito rápido, faz diversas checagens antes de gerar o executável final e tudo isso torna seus programas confiáveis e robustos.
 
-Geralmente, programas escritos em Go são multiplataforma, ou seja, podem ser executados em diversas plataformas, desde um simples Raspberry PI até servidores Linux, passando por Windows e também MAC.
+Geralmente, programas escritos em Go são multiplataforma, ou seja, podem ser executados em diversas plataformas, desde um simples Raspberry PI até servidores Linux, Windows ou também MAC.
 
-Desde sua criação, diversas empresas tem usado linguagem Go nos mais diversos projetos, alguns exemplos são: Google, Docker, IBM, Intel, MercadoLivre, Magazine Luiza, entre outras.
+Desde sua criação, diversas empresas tem usado a linguagem Go nos mais diversos domínios, desde a área gráfica, aplicações móveis e até em aprendizagem automática (_machine learning_). Isso mostra que, apesar de ser bem apropriada para a criação de infraestruturas como servidores em rede, ferramentas e sistemas para programadores, Go é realmente uma liguagem de propósito geral.
 
 É possivel encontrar uma lista com empresas do mundo inteiro no seguinte link: <https://github.com/golang/go/wiki/GoUsers>
 

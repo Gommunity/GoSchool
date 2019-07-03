@@ -1,8 +1,8 @@
 # 05 - Variáveis e Constantes
 
-Go é uma linguagem fortemente tipada, o que implica que todas as variáveis são elementos nomeados que estão vinculados a um valor e um tipo. Como será visto, devido a simplicidade e a flexibilidade da sintaxe da linguagem, declarar e inicializar variáveis fazem com que Go pareça mais uma linguagem tipida dinamicamente.
+Go é uma linguagem fortemente tipada, o que implica que todas as variáveis são elementos nomeados que estão vinculados a um valor e um tipo. Como será visto, devido a simplicidade e a flexibilidade da sintaxe da linguagem, declarar e inicializar variáveis fazem com que Go pareça mais uma linguagem tipada dinamicamente.
 
-Antes de poder usar uma variável no Go, ela deve ser declarada com um identificador nomeado para poder ser referênciada futuramente no código. A forma longa para declarar uma variável em Go segue o seguinte formato:
+Antes de poder usar uma variável em Go, ela deve ser declarada com um identificador nomeado e assim poder ser referênciada futuramente no código. A forma longa para declarar uma variável em Go segue o seguinte formato:
 
 ```go
 var <lista de identificadores> <tipo>
@@ -96,26 +96,26 @@ A tabela a seguir mostra o tipo que é inferido dado um valor literal:
 
 Valor Literal | Tipo inferido
 --------------|--------------
-Texto com aspas duplas ou simples:<br><code>"Planeta Marte"<br>\`Todos os planetas giram em<br>torno do sol.\`</code> | string
-Inteiros:<br><code>-51<br>0<br>1234</code> | int
-Decimal:<br><code>-0.12<br>1.0<br>1.3e5<br>5e-11</code> | float64
-Números complexos:<br><code>-1.0i<br>2i<br>(0+2i)</code> | complex128
-Boleanos:<br><code>true<br>false</code>| bool
-Arrays:<br><code>[2]int{-3, 51}</code>| O tipo do `array` definido pelo valor literal. Neste caso `[2]int`
-Map:<br><code>map[string]int{<br>"Sol": 685800,<br>"Terra": 6378,<br>"Marte": 3396,<br>}</code>| O tipo do `map` definido pelo valor literal. Neste caso `map[string]int`
-Slice:<br><code>[]int{-3, 51, 134, 0}</code>| O tipo do `slice` definido pelo valor literal: `[]int`
-Struct:<br><code>struct{<br>nome string<br>diametro int<br>}{<br>"Marte", 2296,<br>}</code>| O tipo do `struct` definido conforme o valor literal. Neste caso: `struct{nome string; diametro int}`
-Function:<br><code>var sqr = func (v int) int {<br>return v * v<br>}</code>| O tipo de `function` definido na definição literal da função. Neste caso, a variável `sqr` terá o tipo: `func (v int) int`
+Texto com aspas duplas ou simples:<br>`"Planeta Marte"`<br><code>\`Todos os planetas giram em<br>torno do sol.\`</code> | string
+Inteiros:<br>`-51`<br>`0`<br>`1234` | int
+Decimal:<br>`-0.12`<br>`1.0`<br>`1.3e5`<br>`5e-11` | float64
+Números complexos:<br>`-1.0i`<br>`2i`<br>`(0+2i)` | complex128
+Boleanos:<br>`true`<br>`false` | bool
+Arrays:<br>`[2]int{-3, 51}`| O tipo do `array` definido pelo valor literal. Neste caso `[2]int`
+Map:<br>`map[string]int{`<br>`"Sol": 685800,`<br>`"Terra": 6378,`<br>`"Marte": 3396,`<br>`}` | O tipo do `map` definido pelo valor literal. Neste caso `map[string]int`
+Slice:<br>`[]int{-3, 51, 134, 0}` | O tipo do `slice` definido pelo valor literal: `[]int`
+Struct:<br>`struct{`<br>`nome string`<br>`diametro int`<br>`}{`<br>`"Marte", 2296,`<br>`}` | O tipo do `struct` definido conforme o valor literal. Neste caso: `struct{nome string; diametro int}`
+Function:<br>`var sqr = func (v int) int {`<br>`    return v * v`<br>`}` | O tipo de `function` definido na definição literal da função. Neste caso, a variável `sqr` terá o tipo: `func (v int) int`
 
 ## Declaração curta de variável
 
-Em Go é possível reduzir ainda mais a sintaxe da declaração de variáveis. Neste casdo, usando o formato _short variable declaration_. Nesse formato, a declaração perde a palavra-chave `var` e a especificação de tipo e passa a usar o operador `:=` (dois-pontos-igual), conforme mostrado a seguir:
+Em Go é possível reduzir ainda mais a sintaxe da declaração de variáveis. Neste caso, usando o formato _short variable declaration_. Nesse formato, a declaração perde a palavra-chave `var` e a especificação de tipo e passa a usar o operador `:=` (dois-pontos-igual), conforme mostrado a seguir:
 
 ```go
 <lista de identificadores> := <lista de valores ou expressões de inicialização>
 ```
 
-Este é uma forma simples e organizada e que é comumente usada ao declarar variáveis em Go. O techo de código a seguir mostra como usá-la:
+Esta é uma forma simples e organizada e que é comumente usada ao declarar variáveis em Go. O techo de código a seguir mostra como usá-la:
 
 ```go
 ...

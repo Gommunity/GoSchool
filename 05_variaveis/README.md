@@ -1,4 +1,6 @@
-# 05 - Variáveis e Constantes
+# 05 - Variáveis, Constantes e Enumerações
+
+## Variáveis
 
 Go é uma linguagem fortemente tipada, o que implica que todas as variáveis são elementos nomeados que estão vinculados a um valor e um tipo. Como será visto, devido a simplicidade e a flexibilidade da sintaxe da linguagem, declarar e inicializar variáveis fazem com que Go pareça mais uma linguagem tipada dinamicamente.
 
@@ -20,7 +22,7 @@ var satelites []string
 ...
 ```
 
-## O valor zero
+### O valor zero
 
 O trecho de código anterior mostra vários exemplos de variáveis sendo declaradas com uma variedade de tipos. À primeira vista, parece que essas variáveis não têm um valor atribuído. Na verdade, isso contradiz nossa afirmação anterior de que todas as variáveis em Go estão vinculadas a um tipo e um valor.
 
@@ -38,7 +40,7 @@ Array| Cada índice terá um valor zero correspondente ao tipo do array.
 Struct| Em uma estrutura vazia, cada membro terá seu respectivo valor zero.
 Outros tipos: Interface, função, canais, slice, mapas e ponteiros| nil
 
-## Declaração inicializada
+### Declaração inicializada
 
 Go também suporta a combinação de declaração de variável e inicialização como uma expressão usando o seguinte formato:
 
@@ -67,7 +69,7 @@ var satelites = []string{
 ...
 ```
 
-## Omitindo o tipo das variáveis
+### Omitindo o tipo das variáveis
 
 Até agora, discutimos o que é chamado de forma longa de declaração e inicialização de variáveis em Go. Para tornar a linguagem mais próxima de linguagens tipadas dinamicamente, a especificação do tipo pode ser omitida, conforme mostrado no seguinte formato de declaração:
 
@@ -107,7 +109,7 @@ Slice:<br>`[]int{-3, 51, 134, 0}` | O tipo do `slice` definido pelo valor litera
 Struct:<br>`struct{`<br>`nome string`<br>`diametro int`<br>`}{`<br>`"Marte", 2296,`<br>`}` | O tipo do `struct` definido conforme o valor literal. Neste caso: `struct{nome string; diametro int}`
 Function:<br>`var sqr = func (v int) int {`<br>`    return v * v`<br>`}` | O tipo de `function` definido na definição literal da função. Neste caso, a variável `sqr` terá o tipo: `func (v int) int`
 
-## Declaração curta de variável
+### Declaração curta de variável
 
 Em Go é possível reduzir ainda mais a sintaxe da declaração de variáveis. Neste caso, usando o formato _short variable declaration_. Nesse formato, a declaração perde a palavra-chave `var` e a especificação de tipo e passa a usar o operador `:=` (dois-pontos-igual), conforme mostrado a seguir:
 
@@ -135,7 +137,7 @@ func main() {
 ```
 A declaração curta de variáveis utiliza o mesmo mecanismo para inferir o tipo da variável mostrado anteriormente.
 
-### Restrições na declaração curta de variáveis
+#### Restrições na declaração curta de variáveis
 
 Existem algumas restrições quando usamos a declaração curta de variáveis e é muito importante estar ciente para evitar confusão:
 
@@ -144,7 +146,7 @@ Existem algumas restrições quando usamos a declaração curta de variáveis e 
 - `:=` não pode ser usado para atualizar uma variável declarada anteriormente;
 - Atualizações de variáveis devem ser feitas com um sinal de igual.
 
-## Declaração de variável em bloco
+### Declaração de variável em bloco
 
 A sintaxe do Go permite que a declaração de variáveis seja agrupada em blocos para maior legibilidade e organização do código. O trecho de código a seguir mostra a reescrita de um dos exemplos anteriores usando a declaração de variável em bloco:
 
@@ -161,3 +163,193 @@ var (
 )
 ```
 
+## Constantes
+
+Em Go, uma constante é um valor com uma representação literal de uma string, um caractere, um boleano ou numeros. O valor para uma constante é estático e não pode ser alterado após a atribuição inicial.
+
+### Constantes tipadas
+
+Go usa a palavra chave `const` para indicar a declaração de uma constante. Diferente da declaração de uma variável, a declaração deve sempre incluir o valor literal a ser vinculado ao identificador, conforme mostrado a seguir:
+
+```go
+const <lista de identificadores> tipo = <lista de valores ou expressões de inicialização>
+```
+
+O seguinte trecho de código mostra algumas constantes tipadas sendo declaradas:
+
+```go
+...
+const a1, a2 string = "Workshop", "Go"
+const b rune = 'G'
+const c bool = false
+const d int32 = 2019
+const e float32 = 2.019
+const f float64 = math.Pi * 2.0e+3
+const g complex64 = 5.0i
+const h time.Duration = 4 * time.Second
+...
+```
+
+Note que cada constante declarada recebe explicitamente um tipo. Isso implica que a constantes só podem ser usada em contextos compatíveis com seus tipos. No entanto, isso funciona de maneira diferente quando o tipo é omitido.
+
+### Constantes não tipadas
+
+Constantes são ainda mais interessantes quando não são tipada. Uma constante sem tipo é declarada da seguinte maneira:
+
+```go
+const <lista de identificadores> = <lista de valores ou expressões de inicialização>
+```
+
+Neste formato, a especificação de tipo é omitida na declaração. Logo, uma constante é meramente um bloco de bytes na memória sem qualquer tipo de restrição de precisão imposta. A seguir, algumas declarações de constantes não tipificadas:
+
+```go
+...
+const i = "G é" + " para Go"
+const j = 'V'
+const k1, k2 = true, !k1
+const l = 111*100000 + 9
+const m1 = math.Pi / 3.141592
+const m2 = 1.41421356237309504880168872420969807856967187537698078569671875376
+const m3 = m2 * m2
+const m4 = m3 * 1.0e+400
+const n = -5.0i * 3
+const o = time.Millisecond * 5
+...
+```
+
+A constante `m4` recebe um valor muito grande (`m3 * 1.0e+400`) que é armazenado na memória sem qualquer perda de precisão. Isso pode ser útil em aplicações onde realizar cálculos com um alto nível de precisão é extremamente importante.
+
+### Atribuindo constantes não tipadas
+
+Mesmo Go sendo uma linguagem fortemente tipada, é possível atribuir uma constante não tipada a diferentes tipos de precisão diferentes, embora compatíveis, sem qualquer reclamação do compilador, conforme mostrada a seguir:
+
+```go
+...
+const m2 = 1.41421356237309504880168872420969807856967187537698078569671875376
+var u1 float32 = m2
+var u2 float64 = m2
+u3 := m2
+...
+```
+
+O exemplo anterior mostra a constante não tipada `m2` sendo atribuída a duas variáveis de ponto flutuante com diferentes precisões, `u1` e `u2`, e a uma variável sem tipo, `u3`. Isso é possível porque a constante `m2` é armazenada como um valor não tipado e, portanto, pode ser atribuída a qualquer variável compatível com sua representação (um ponto flutuante).
+
+Como `u3` não tem um tipo específico, ele será inferido a partir do valor da constante, e como `m2` representa um valor decimal, o compilador irá inferir seu tipo padrão, um `float64`.
+
+A declaração de constantes também podem ser organizadas em blocos, aumentando a legibilidade do código, conforme a seguir:
+
+```go
+...
+const (
+	a1, a2 string        = "Workshop", "Go"
+	b      rune          = 'G'
+	c      bool          = false
+	d      int32         = 2019
+	e      float32       = 2.019
+	f      float64       = math.Pi * 2.0e+3
+	g      complex64     = 5.0i
+	h      time.Duration = 4 * time.Second
+)
+...
+```
+
+## Enumerações
+
+Um interessante uso para constantes é na criação de enumerações. Usando a declaração de blocos, é facilmente possível criar valore inteiros que aumentam numericamente. Para isso, basta atribuir o valor constante pré-declarado `iota` a um identificador de constante na declaração de bloco, conforme mostrado no exemplo a seguir:
+
+```go
+...
+const (
+	EstrelaHiperGigante = iota
+	EstrelaSuperGigante
+	EstrelaBrilhanteGigante
+	EstrelaGigante
+	EstrelaSubGigante
+	EstrelaAna
+	EstrelaSubAna
+	EstrelaAnaBranca
+	EstrelaAnaVermelha
+	EstrelaAnaMarrom
+)
+...
+```
+
+Nessa situação, o compilador fará o seguinte:
+
+- Declarar cada membro no bloco como um valor constante inteiro não tipado;
+- Inicializar a `iota` com o valor zero;
+- Atribuir a `iota`, ou zero, ao primeiro membro (`EstrelaHiperGigante`);
+- Cada constante subsequente recebe um `int` aumentado em um.
+
+Assim, as constantes da lista receberão os valores de zero até nove.
+
+É importante ressaltar que, sempre que `const` aparecer em um bloco de declaração, o contador é redefinido para zero. No trecho de código seguinte, cada conjunto de constantes é enumerado de zero a quatro:
+
+```go
+...
+const (
+	EstrelaHiperGigante = iota
+	EstrelaSuperGigante
+	EstrelaBrilhanteGigante
+	EstrelaGigante
+	EstrelaSubGigante
+)
+const (
+	EstrelaAna = iota
+	EstrelaSubAna
+	EstrelaAnaBranca
+	EstrelaAnaVermelha
+	EstrelaAnaMarrom
+)
+...
+```
+
+### Substituindo o tipo padrão de uma enumeração
+
+Por padrão, uma constante enumerada é declarada como um tipo inteiro não tipado. Porém, podemos substituir o tipo padrão provendo explicitamente um tipo numérico, como mostrado a seguir:
+
+```go
+...
+const (
+	EstrelaAna byte = iota
+	EstrelaSubAna
+	EstrelaAnaBranca
+	EstrelaAnaVermelha
+	EstrelaAnaMarrom
+)
+...
+```
+É possível especificar qualquer tipo numérico que pode representar um inteiro ou um ponto flutuante. No exemplo anterior, cada constante será declarada como um tipo `byte`.
+
+### Usando `iota` em expressões
+
+Quando a `iota` aparece em uma expressão, o compilador irá aplicar a expressão para cada valor sucessivo. O exemplo a seguir atribui números pares aos membros do bloco de declaração:
+
+```go
+...
+const (
+	EstrelaHiperGigante = 2.0 * iota
+	EstrelaSuperGigante
+	EstrelaBrilhanteGigante
+	EstrelaGigante
+	EstrelaSubGigante
+)
+...
+```
+
+### Ignorando valores em enumerações
+
+É possível ignorar certos valores em uma enumeração simplesmente atribuindo a `iota` a um identificador em branco (`_`). No trecho de código a seguir, o valor `0` é ignorado:
+
+```go
+...
+const (
+	_                   = iota
+	EstrelaHiperGigante = 1 << iota
+	EstrelaSuperGigante
+	EstrelaBrilhanteGigante
+	EstrelaGigante
+	EstrelaSubGigante
+)
+...
+```
